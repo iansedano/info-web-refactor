@@ -25,6 +25,11 @@ body {
     padding: 3rem;
 }
 
+.section {
+    height: 100vh;
+}
+
+
 h1 {
     font-size: 4rem;
     text-transform: uppercase;
@@ -48,7 +53,4 @@ p {
 }
 
 
-section {
-    height: 100vh;
-}
 
