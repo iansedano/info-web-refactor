@@ -1,0 +1,54 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit; /* box sizing is not auto inherited, this forces it */
+}
+
+html {
+    font-size: 100%; /* This defines what 1 rem is*/
+}
+
+body {
+    box-sizing: border-box;
+    background-color: grey;
+    
+    margin-left: auto;
+    margin-right: auto;
+
+    text-align: center;
+
+    font-family: Verdana, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: $grey;
+    padding: 3rem;
+}
+
+h1 {
+    font-size: 4rem;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 3rem;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: 2rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+p {
+    font-size: 1rem;
+}
+
+
+section {
+    height: 100vh;
+}
+

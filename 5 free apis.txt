@@ -1,0 +1,43 @@
+These no not require any authentication:
+
+- [UK Police Data](https://data.police.uk/docs/)
+- [Music Data](https://musicbrainz.org/doc/MusicBrainz_API)
+- [Country Data](http://restcountries.eu/)
+- [Space X Data](https://docs.spacexdata.com/?version=latest)
+- [General Space Data](http://open-notify.org/)
+- [Geolocation of IP addresses](https://freegeoip.io/)
+
+These are free but require a sign up to get an API key:
+
+- [NASA Data](https://api.nasa.gov/)
+- [Weather Data](https://openweathermap.org/price)
+- [Movie Data](http://www.omdbapi.com/)
+
+---
+
+IP geo https://freegeoip.io/
+ - Country
+ - Region
+ - City
+ - Lat Long
+ - Time zone
+Country Info http://restcountries.eu/
+ - flag
+ - country code
+ - region
+ - population
+ - area
+ - language
+ - regional bloc
+Time at location http://worldtimeapi.org/
+ - local time
+Time of ISS flyover http://open-notify.org/
+ - time of ISS flyover
+ - people in space
+https://sunrise-sunset.org/api - change background
+ - sunrise
+ - sunset
+ - day length
+ - solar noon
+ 
+ ATTRIBUTION!!
