@@ -1,5 +1,3 @@
-
-
 function buildStartingPage(root) {
     const welcomeSection = c("div", "", "section")
     welcomeSection.id = "welcome-section"
@@ -22,13 +20,22 @@ function fillWelcomeSection(section, welcomeData){
         `Looks like you are in ${welcomeData.city}, ${welcomeData.country}`,
         "message"
     )
-
     section.append(header, message)
 } 
 
 function fillCountrySection(section, countryData){
     console.log(countryData)
-    const header = c("h2", "Welcome!", "section-header")
+    const header = c("h2", `${countryData.country}`, "section-header")
+    const populationString =
+        new Intl.NumberFormat().format(countryData.population)
+    const messageString = 
+        `Known locally as ${countryData.nativeName}, \
+        has a population of ${populationString}. It's gini coefficient is \
+        ${countryData.gini}, which is ${compareGini(countryData.gini)}.`
+
+    const message = c("h3", messageString, "message")
+
+    section.append(header, message)
 } 
 
 function fillWeatherSection(section, weatherData){

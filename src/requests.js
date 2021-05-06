@@ -52,7 +52,9 @@ function filterWelcomeData(response) {
 }
 
 function filterCountryData(response) {
+    console.log(response)
     return {
+        country : response[0].name,
         gini : response[0].gini,
         nativeName : response[0].nativeName,
         population: response[0].population,

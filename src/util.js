@@ -23,3 +23,13 @@ function deg2rad(deg) {
 function KtoC(temp) {
   return temp - 273.15
 }
+
+function compareGini(x) {
+  if (x > 50) {
+    return "very high"
+  } else if (x > 40) {
+    return "high"
+  } else if (x > 30) {
+    return "medium"
+  } else return "low"
+}
