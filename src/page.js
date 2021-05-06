@@ -10,25 +10,33 @@ function buildStartingPage(root) {
     const issSection = c("div", "", "section")
     issSection.id = "iss-section"
 
-    root.appendChild(welcomeSection)
-    root.appendChild(countrySection)
-    root.appendChild(weatherSection)
-    root.appendChild(issSection)
+    root.append(welcomeSection, countrySection, weatherSection, issSection)
 }
 
 
-function fillWelcomeSection(section, data){
+function fillWelcomeSection(section, welcomeData){
+    console.log(welcomeData)
+    const header = c("h2", "Welcome!", "section-header")
+    const message = c(
+        "h3",
+        `Looks like you are in ${welcomeData.city}, ${welcomeData.country}`,
+        "message"
+    )
+
+    section.append(header, message)
+} 
+
+function fillCountrySection(section, countryData){
+    console.log(countryData)
     const header = c("h2", "Welcome!", "section-header")
 } 
 
-function fillCountrySection(section, data){
+function fillWeatherSection(section, weatherData){
+    console.log(weatherData)
     const header = c("h2", "Welcome!", "section-header")
 } 
 
-function fillWeatherSection(section, data){
-    const header = c("h2", "Welcome!", "section-header")
-} 
-
-function fillIssSection(section, data){
+function fillIssSection(section, welcomeData, issData){
+    console.log(issData)
     const header = c("h2", "Welcome!", "section-header")
 } 

@@ -25,6 +25,7 @@ function getCountryData(country){
         .catch(err => console.log(err, "country data failed"))
 }
 
+
 function getWeatherData(latitude, longitude) {
     return fetch(
         "https://api.openweathermap.org/data/2.5/weather?lat=" +
@@ -39,6 +40,39 @@ function getIssInfo() {
     return fetch("https://api.wheretheiss.at/v1/satellites/25544")
         .then(response => response.json())
         .catch(err => console.log(err, "iss data failed"))
+}
+
+function filterWelcomeData(response) {
+    return {
+        city : response.city,
+        country : response.country_name,
+        lat : response.latitude,
+        long : response.longitude
+    }
+}
+
+function filterCountryData(response) {
+    return {
+        gini : response[0].gini,
+        nativeName : response[0].nativeName,
+        population: response[0].population,
+    }
+}
+
+function filterWeatherData(response) {
+    return {
+        feels_like: response.main.feels_like,
+        sunrise: response.sys.sunrise,
+        sunset: response.sys.sunset,
+        weather: response.weather[0].main
+    }
+}
+
+function filterIssData(response) {
+    return {
+        latitude: response.latitude,
+        longitude: response.longitude
+    }
 }
 
 

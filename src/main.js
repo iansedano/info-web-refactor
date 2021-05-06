@@ -1,51 +1,38 @@
 buildStartingPage(root)
 getInfo()
+  .then(resp => console.log(resp))
+  .catch(err => console.log(err))
+
 
 function getInfo() {
 
   return getWelcomeData()
-    .then(resp => {
-      console.log(resp)
-      const welcomeData =  {
-        city : resp.city,
-        country : resp.country_name,
-        lat : resp.latitude,
-        long : resp.longitude
-      }
+    .then(response => filterWelcomeData(response))
+    .then(welcomeData => {
       const welcomeDiv = s("welcome-section")
       fillWelcomeSection(welcomeDiv, welcomeData)
-      return welcomeData
-    })
-    .then(welcomeData => {
-      console.log("welcome data", welcomeData)
 
       getCountryData(welcomeData.country)
+        .then(countryData => filterCountryData(countryData))
         .then(countryData => {
           const countryDiv = s("country-section")
-          fillCountrySection(countryDiv, {
-            gini : countryData.gini,
-            nativeName : countryData.nativeName,
-            population: countryData.population,
-          })
+          fillCountrySection(countryDiv, countryData)
         })
       
       getWeatherData(welcomeData.lat, welcomeData.long)
+        .then(weatherData => filterWeatherData(weatherData))
         .then(weatherData => {
           const weatherDiv = s("weather-section")
-          console.log("weather", weatherData)
-          // fillWeatherSection(weatherDiv, {
-
-          // })
+          fillWeatherSection(weatherDiv, weatherData)
         })
 
       getIssInfo()
+        .then(issData => filterIssData(issData))
         .then(issData => {
           const issDiv = s("iss-section")
-          console.log("iss", issData)
-          // fillIssSection(issDiv, {
-            
-          // })
+          fillIssSection(issDiv, welcomeData, issData)
         })
+
     })
 
 }
