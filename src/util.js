@@ -33,3 +33,33 @@ function compareGini(x) {
     return "medium"
   } else return "low"
 }
+
+/**
+ * 
+ * @param {Date} sunset 
+ * @param {Date} sunrise 
+ */
+function getTimeOfDayData(sunset, sunrise) {
+  // dawn, sunrise, morning, noon, evening, sunset, dusk, night
+  const now = new Date();
+  const hourNow = now.getHours()
+  const minutesNow = now.getMinutes()
+
+  const sunsetHour = sunset.getHours()
+  const sunsetMinutes = sunset.getMinutes()
+
+  const timeToSunset = Math.abs(now.getTime() - sunset.getTime())
+  const timeToSunrise = Math.abs(now.getTime() - sunrise.getTime())
+
+  console.log(sunset, sunrise)
+
+  console.log("now", now.getHours())
+
+  console.log(timeToSunset > timeToSunrise)
+
+  return {
+    timeOfDay: "sunrise",
+    closestEvent: "sunrise",
+    timeTo: "-1023948"
+  }
+}
