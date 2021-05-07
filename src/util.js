@@ -1,7 +1,6 @@
 /**
  * https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
  */
-
 function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   var R = 6371; // Radius of the earth in km
   var dLat = deg2rad(lat2-lat1);  // deg2rad below
@@ -36,30 +35,46 @@ function compareGini(x) {
 
 /**
  * 
- * @param {Date} sunset 
- * @param {Date} sunrise 
+ * @param {number} sunset 
+ * @param {number} sunrise 
  */
-function getTimeOfDayData(sunset, sunrise) {
+function getTimeOfDayData(sunrise, sunset) {
   // dawn, sunrise, morning, noon, evening, sunset, dusk, night
-  const now = new Date();
-  const hourNow = now.getHours()
-  const minutesNow = now.getMinutes()
+  const now = getMinsFromStartOfDay(new Date())
 
-  const sunsetHour = sunset.getHours()
-  const sunsetMinutes = sunset.getMinutes()
+  console.log(dateFromUtcSeconds(sunset), dateFromUtcSeconds(sunrise))
 
-  const timeToSunset = Math.abs(now.getTime() - sunset.getTime())
-  const timeToSunrise = Math.abs(now.getTime() - sunrise.getTime())
+  
+  const sunsetMinutes = getMinsFromStartOfDay(dateFromUtcSeconds(sunset))
+  const sunriseMinutes = getMinsFromStartOfDay(dateFromUtcSeconds(sunrise))
+ 
+  console.log("mins", sunsetMinutes, sunriseMinutes)
 
-  console.log(sunset, sunrise)
+  const timeToSunset = now - sunsetMinutes
+  const timeToSunrise = now - sunriseMinutes
 
-  console.log("now", now.getHours())
 
-  console.log(timeToSunset > timeToSunrise)
+  console.log(timeToSunset, timeToSunrise)
 
   return {
-    timeOfDay: "sunrise",
     closestEvent: "sunrise",
     timeTo: "-1023948"
   }
+}
+
+function dateFromUtcSeconds(secs){
+  var d = new Date(0); // 0 sets the date to the epoch.
+  d.setUTCSeconds(secs);
+  return d
+}
+
+function getMinsFromStartOfDay(date){
+  const hours = date.getHours()
+  const minutes = date.getMinutes()
+
+  return (hours * 60) + minutes
+}
+
+function msToMin(ms) {
+  return (ms / 1000) / 60
 }

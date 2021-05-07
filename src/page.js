@@ -40,10 +40,9 @@ function fillCountrySection(section, countryData){
 
 function fillWeatherSection(section, weatherData){
     console.log(weatherData)
-    const sunrise = new Date(weatherData.sunrise)
-    const sunset = new Date(weatherData.sunset)
 
-    const {timeOfDay, closestEvent, timeTo} = getTimeOfDayData(sunrise, sunset)
+    const {timeOfDay, closestEvent, timeTo} = 
+        getTimeOfDayData(weatherData.sunrise, weatherData.sunset)
 
     
 
