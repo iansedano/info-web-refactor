@@ -62,6 +62,7 @@ function filterCountryData(response) {
 }
 
 function filterWeatherData(response) {
+    console.log(response)
     return {
         feels_like: response.main.feels_like,
         sunrise: response.sys.sunrise,

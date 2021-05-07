@@ -21,7 +21,7 @@ function deg2rad(deg) {
 }
 
 function KtoC(temp) {
-  return temp - 273.15
+  return Math.round(temp - 273.15)
 }
 
 function compareGini(x) {

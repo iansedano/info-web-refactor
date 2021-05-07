@@ -40,7 +40,17 @@ function fillCountrySection(section, countryData){
 
 function fillWeatherSection(section, weatherData){
     console.log(weatherData)
-    const header = c("h2", "Welcome!", "section-header")
+    const now = new Date();
+    const sunrise = new Date(weatherData.sunrise)
+    const sunset = new Date(weatherData.sunset)
+    const temp = KtoC(weatherData.feels_like)
+    const weather = weatherData.weather
+    const messageString = `Its around ${temp} degrees`
+
+    const header = c("h2", `It's ${weather}`, "section-header")
+    const message = c("h3", messageString, "message")
+
+    section.append(header, message)
 } 
 
 function fillIssSection(section, welcomeData, issData){
