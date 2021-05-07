@@ -10,46 +10,43 @@ html {
 
 body {
     box-sizing: border-box;
-    background-color: grey;
+    background-color: #f4e660;
     
     margin-left: auto;
     margin-right: auto;
 
     text-align: center;
 
-    font-family: Verdana, Helvetica, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
+    font-family: "Barlow condensed", "Source sans pro", sans-serif;
     line-height: 1.7;
-    color: $grey;
     padding: 3rem;
 }
 
 .section {
-    height: 100vh;
+    height: 80vh;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 
-
-h1 {
-    font-size: 4rem;
-    text-transform: uppercase;
-}
 
 h2 {
-    font-size: 3rem;
+    font-size: 5rem;
     text-transform: uppercase;
 }
 
 h3 {
-    font-size: 2rem;
+    font-size: 3rem;
 }
 
 h4 {
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 p {
-    font-size: 1rem;
+    font-size: 1.5rem;
 }
 
 
