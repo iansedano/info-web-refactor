@@ -41,16 +41,18 @@ function fillCountrySection(section, countryData){
 function fillWeatherSection(section, weatherData){
     console.log(weatherData)
 
-    const {timeOfDay, closestEvent, timeTo} = 
-        getTimeOfDayData(weatherData.sunrise, weatherData.sunset)
+    const sunrise = dateFromUtcSeconds(weatherData.sunrise)
+    const sunset = dateFromUtcSeconds(weatherData.sunset)
 
-    
+    const timeOfDayData = getTimeOfDayData(sunrise, sunset)
+
+    console.log("timeofdaydata", timeOfDayData)
 
     const temp = KtoC(weatherData.feels_like)
     const weather = weatherData.weather
-    const messageString = `Its around ${temp} degrees`
+    const messageString = `It's ${weather} and around ${temp} degrees`
 
-    const header = c("h2", `It's ${weather}`, "section-header")
+    const header = c("h2", `It's ${timeOfDayData.timeOfDay}`, "section-header")
     const message = c("h3", messageString, "message")
 
     section.append(header, message)

@@ -4,18 +4,56 @@
  * @param {number} sunrise 
  */
  function getTimeOfDayData(sunrise, sunset) {
-    // dawn, sunrise, morning, noon, evening, sunset, dusk, night
-    const output = {}
+    const now = new Date()
 
-    output.now = new Date()
-    
-    output.sunrise = dateFromUtcSeconds(sunrise)
-    output.sunset = dateFromUtcSeconds(sunset)
+    const minsNow = getMinsFromStartOfDay(now)
 
-    output.timeOfDay = getTimeOfDay(output.now, output.sunrise, output.sunset)
-  
-    console.log(output)
-    return output
+    const sunriseMinsFromStartOfDay = getMinsFromStartOfDay(sunrise)
+    const sunsetMinsFromStartOfDay = getMinsFromStartOfDay(sunset)
+
+    const minsToSunrise = sunriseMinsFromStartOfDay - minsNow 
+    const minsToSunset = sunsetMinsFromStartOfDay - minsNow
+
+    let timeOfDay = null
+    let backgroundColor = null
+    let textColor = null
+
+    if (minsToSunrise <= 60 && minsToSunrise > 0) {
+        timeOfDay = "dawn";
+        backgroundColor = "#E3C8C4"
+        textColor = "#1F2D50"
+    } else if (minsToSunrise <= 0 && minsToSunrise > -60) {
+        timeOfDay = "sunrise";
+        backgroundColor = "#F2E879"
+        textColor = "#122959"
+    } else if (minsToSunset <= 60 && minsToSunset > 0) {
+        timeOfDay = "sunset";
+        backgroundColor = "#F78807"
+        textColor = "#161A1D"
+    } else if (minsToSunset <= 0 && minsToSunset > -60) {
+        timeOfDay = "dusk";
+        backgroundColor = "#3F548C"
+        textColor = "#11121E"
+    } else if (minsToSunrise <= 0 && minsToSunset >= 0) {
+        timeOfDay = "day";
+        backgroundColor = "#9AD4DB"
+        textColor = "#14826F"
+    } else if (minsToSunrise <= 0 || minsToSunset >= 0) {
+        timeOfDay = "night";
+        backgroundColor = "#131D35"
+        textColor = "#DBF7A0"
+    } else {
+        timeOfDay = "can't determine time of day"
+    }
+
+    return {
+        minsToSunset: minsToSunset,
+        minsToSunrise: minsToSunrise,
+        timeOfDay: timeOfDay,
+        backgroudColor: backgroundColor,
+        textColor: textColor
+    }
+
   }
   
   /**
@@ -26,39 +64,7 @@
    */
   function getTimeOfDay(now, sunrise, sunset) {
 
-    const minsNow = getMinsFromStartOfDay(now)
-
-    const sunriseMinsFromStartOfDay = getMinsFromStartOfDay(sunrise)
-    const sunsetMinsFromStartOfDay = getMinsFromStartOfDay(sunset)
-
-    const minsToSunrise = sunriseMinsFromStartOfDay - minsNow 
-    const minsToSunset = sunsetMinsFromStartOfDay - minsNow
-
-    console.log("hours", now.getHours(), "sunrise in", minsToSunrise, "sunset in", minsToSunset)
-
-    let timeOfDay = null
-
-    if (minsToSunrise <= 60 && minsToSunrise > 0) {
-        timeOfDay = "dawn";
-    } else if (minsToSunrise <= 0 && minsToSunrise > -60) {
-        timeOfDay = "sunrise";
-    } else if (minsToSunset <= 60 && minsToSunset > 0) {
-        timeOfDay = "sunset";
-    } else if (minsToSunset <= 0 && minsToSunset > -60) {
-        timeOfDay = "dusk";
-    } else if (minsNow > minsToSunrise && minsNow < minsToSunset) {
-        timeOfDay = "day";
-    } else if (minsNow < minsToSunrise || minsNow > minsToSunset) {
-        timeOfDay = "night";
-    } else {
-        timeOfDay = "can't determine time of day"
-    }
-
-    return {
-        minsToSunset: minsToSunset,
-        minsToSunrise: minsToSunrise,
-        timeOfDay: timeOfDay
-    }
+    
 
   }
   
@@ -77,8 +83,4 @@
   
   function msToMin(ms) {
     return (ms / 1000) / 60
-  }
-
-  function colorTimeOfDay(timeOfDay) {
-
   }
