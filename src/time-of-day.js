@@ -12,8 +12,6 @@
     output.sunrise = dateFromUtcSeconds(sunrise)
     output.sunset = dateFromUtcSeconds(sunset)
 
-    
-    
     output.timeOfDay = getTimeOfDay(output.now, output.sunrise, output.sunset)
   
     console.log(output)
@@ -27,43 +25,39 @@
    * @param {Date} sunset 
    */
   function getTimeOfDay(now, sunrise, sunset) {
-    const minsFromStartOfDay = getMinsFromStartOfDay(now)
+
+    const minsNow = getMinsFromStartOfDay(now)
 
     const sunriseMinsFromStartOfDay = getMinsFromStartOfDay(sunrise)
     const sunsetMinsFromStartOfDay = getMinsFromStartOfDay(sunset)
 
-    const minsToSunrise = sunriseMinsFromStartOfDay - minsFromStartOfDay 
-    const minsToSunset = sunsetMinsFromStartOfDay - minsFromStartOfDay
+    const minsToSunrise = sunriseMinsFromStartOfDay - minsNow 
+    const minsToSunset = sunsetMinsFromStartOfDay - minsNow
 
     console.log("hours", now.getHours(), "sunrise in", minsToSunrise, "sunset in", minsToSunset)
 
-    // Will probably not work if you live close to the poles!
+    let timeOfDay = null
+
     if (minsToSunrise <= 60 && minsToSunrise > 0) {
-        return "dawn";
+        timeOfDay = "dawn";
     } else if (minsToSunrise <= 0 && minsToSunrise > -60) {
-        return "sunrise";
+        timeOfDay = "sunrise";
     } else if (minsToSunset <= 60 && minsToSunset > 0) {
-        return "sunset";
+        timeOfDay = "sunset";
     } else if (minsToSunset <= 0 && minsToSunset > -60) {
-        return "dusk";
-    } else if (now.getHours() >= 11 && now.getHours() < 12) {
-        return "almost noon";
-    } else if (now.getHours() >= 12 && now.getHours() <= 13) {
-        return "noon";
-    } else if (now.getHours() >= 23) {
-        return "almost midnight";
-    } else if (now.getHours() <= 1) {
-        return "midnight";
-    } else if (minsToSunrise < -60 && now.getHours() < 11) {
-        return "morning"
-    } else if (minsToSunset > 60 && now.getHours() > 13) {
-        return "afternoon"
-    } else if (now.getHours() < 23 && minsToSunset > 60) {
-        return "evening"
-    } else if (now.getHours() > 1 && minsToSunset < -60) {
-        return "night"
+        timeOfDay = "dusk";
+    } else if (minsNow > minsToSunrise && minsNow < minsToSunset) {
+        timeOfDay = "day";
+    } else if (minsNow < minsToSunrise || minsNow > minsToSunset) {
+        timeOfDay = "night";
     } else {
-        return "can't determine time of day"
+        timeOfDay = "can't determine time of day"
+    }
+
+    return {
+        minsToSunset: minsToSunset,
+        minsToSunrise: minsToSunrise,
+        timeOfDay: timeOfDay
     }
 
   }
@@ -83,4 +77,8 @@
   
   function msToMin(ms) {
     return (ms / 1000) / 60
+  }
+
+  function colorTimeOfDay(timeOfDay) {
+
   }
