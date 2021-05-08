@@ -46,6 +46,8 @@ function fillWeatherSection(section, weatherData){
 
     const timeOfDayData = getTimeOfDayData(sunrise, sunset)
 
+    colorPage(timeOfDayData)
+
     console.log("timeofdaydata", timeOfDayData)
 
     const temp = KtoC(weatherData.feels_like)
@@ -60,7 +62,37 @@ function fillWeatherSection(section, weatherData){
 
 function fillIssSection(section, welcomeData, issData){
     console.log(issData)
-    const header = c("h2", "Welcome!", "section-header")
+    const header = c("h2", "The International Space Station", "section-header")
+
+    // This calculation doesn't take altitude into consideration
+    const distance = 
+        Math.round(
+            getDistanceFromLatLonInKm(
+                welcomeData.latitude,
+                welcomeData.longitude,
+                issData.latitude,
+                issData.longitude
+            )
+        )
+    
+    const formattedDistance = new Intl.NumberFormat().format(distance)
+    
+    let messageString = null
+    if (distance < 1000) {
+        messageString = `Is passing over ${welcomeData.city} right now!`
+    } else {
+        messageString = `Is about ${formattedDistance}km from ${welcomeData.city} right now.`
+    }
+
+    const message = c("h3", messageString, "message")
+
+    section.append(header, message)
+    
 }
 
 
+function colorPage(timeOfDayData){
+    console.log(timeOfDayData)
+    document.body.style.backgroundColor = timeOfDayData.backgroundColor
+    document.body.style.color = timeOfDayData.textColor
+}

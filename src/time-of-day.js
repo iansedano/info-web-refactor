@@ -50,7 +50,7 @@
         minsToSunset: minsToSunset,
         minsToSunrise: minsToSunrise,
         timeOfDay: timeOfDay,
-        backgroudColor: backgroundColor,
+        backgroundColor: backgroundColor,
         textColor: textColor
     }
 

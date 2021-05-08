@@ -46,8 +46,8 @@ function filterWelcomeData(response) {
     return {
         city : response.city,
         country : response.country_name,
-        lat : response.latitude,
-        long : response.longitude
+        latitude : response.latitude,
+        longitude : response.longitude
     }
 }
 

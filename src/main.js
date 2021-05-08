@@ -19,7 +19,7 @@ function getInfo() {
           fillCountrySection(countryDiv, countryData)
         })
       
-      getWeatherData(welcomeData.lat, welcomeData.long)
+      getWeatherData(welcomeData.latitude, welcomeData.longitude)
         .then(weatherData => filterWeatherData(weatherData))
         .then(weatherData => {
           const weatherDiv = s("weather-section")
