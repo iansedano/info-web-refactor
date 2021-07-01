@@ -1,3 +1,47 @@
+async function populateOpenWeatherSection(section){
+    const weatherData = await getWeatherData()
+    const filteredWeatherData = filterWeatherData(weatherData)
+    fillWeatherSection(section, filteredWeatherData)
+}
+
+function getWeatherData(latitude, longitude) {
+    return fetch(
+        "https://api.openweathermap.org/data/2.5/weather?lat=" +
+        latitude + "&lon=" + longitude +
+        "&appid=1866411b5b586495c200d03f6cfa7a77"
+        )
+        .then(response => response.json())
+        .catch(err => console.log(err, "weather data failed"))
+}
+
+function filterWeatherData(response) {
+    return {
+        feels_like: response.main.feels_like,
+        sunrise: response.sys.sunrise,
+        sunset: response.sys.sunset,
+        weather: response.weather[0].main
+    }
+}
+
+function fillWeatherSection(section, weatherData){
+    
+    const sunrise = new Date(weatherData.sunrise * 1000)
+    const sunset = new Date(weatherData.sunset * 1000)
+    
+    const timeOfDayData = getTimeOfDayData(sunrise, sunset)
+    
+    colorPage(timeOfDayData)
+    
+    const temp = KtoC(weatherData.feels_like)
+    const weather = weatherData.weather
+    const messageString = `It's ${weather} and around ${temp} degrees`
+
+    const header = c("h2", `It's ${timeOfDayData.timeOfDay}`, "section-header")
+    const message = c("h3", messageString, "message")
+    
+    section.append(header, message)
+} 
+
 /**
  * 
  * @param {number} sunset 
@@ -56,31 +100,22 @@
 
   }
   
-  /**
-   * 
-   * @param {Date} now 
-   * @param {Date} sunrise 
-   * @param {Date} sunset 
-   */
-  function getTimeOfDay(now, sunrise, sunset) {
 
-    
-
-  }
-  
-  function dateFromUtcSeconds(secs){
-    var d = new Date(0); // 0 sets the date to the epoch.
-    d.setUTCSeconds(secs);
-    return d
-  }
-  
-  function getMinsFromStartOfDay(date){
+function getMinsFromStartOfDay(date){
     const hours = date.getHours()
     const minutes = date.getMinutes()
-  
+
     return (hours * 60) + minutes
-  }
-  
-  function msToMin(ms) {
+    }
+
+    function msToMin(ms) {
     return (ms / 1000) / 60
-  }
+}
+
+
+// TODO - refactor to take argument of background color and color
+function colorPage(timeOfDayData){
+    console.log(timeOfDayData)
+    document.body.style.backgroundColor = timeOfDayData.backgroundColor
+    document.body.style.color = timeOfDayData.textColor
+}
