@@ -1,12 +1,14 @@
-async function populateWelcomeSection(){
-    
+async function populateWelcomeSection(section){
+    const welcomeData = await getWelcomeData()
+    fillWelcomeSection(section, welcomeData)
+    return welcomeData
 }
 
-function getWelcomeData() {
-    return fetch("https://freegeoip.app/json/")
-    .then((response) => response.json())
-    .catch(err => console.log(err, "welcome data failed"))
-      /* FORMAT
+async function getWelcomeData() {
+    const response = await fetch("https://freegeoip.app/json/")
+    const json = response.json()
+    
+    /* RESPONSE FORMAT
     city: "Arbucies"
     country_code: "ES"
     country_name: "Spain"
@@ -18,14 +20,12 @@ function getWelcomeData() {
     region_name: "Catalonia"
     time_zone: "Europe/Madrid"
     zip_code: "17401" */
-}
-
-function filterWelcomeData(response) {
+    
     return {
-        city : response.city,
-        country : response.country_name,
-        latitude : response.latitude,
-        longitude : response.longitude
+        city : json.city,
+        country : json.country_name,
+        latitude : json.latitude,
+        longitude : json.longitude
     }
 }
 

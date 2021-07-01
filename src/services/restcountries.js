@@ -28,3 +28,15 @@ function fillCountrySection(section, countryData){
     
     section.append(header, message)
 } 
+
+
+function compareGini(x) {
+    if (x > 50) {
+      return "very high"
+    } else if (x > 40) {
+      return "high"
+    } else if (x > 30) {
+      return "medium"
+    } else return "low"
+  }
+  
