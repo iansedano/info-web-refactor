@@ -1,25 +1,20 @@
 async function populateOpenWeatherSection(section){
     const weatherData = await getWeatherData()
-    const filteredWeatherData = filterWeatherData(weatherData)
-    fillWeatherSection(section, filteredWeatherData)
+    fillWeatherSection(section, weatherData)
 }
 
-function getWeatherData(latitude, longitude) {
-    return fetch(
+async function getWeatherData(latitude, longitude) {
+    const response = await fetch(
         "https://api.openweathermap.org/data/2.5/weather?lat=" +
         latitude + "&lon=" + longitude +
         "&appid=1866411b5b586495c200d03f6cfa7a77"
         )
-        .then(response => response.json())
-        .catch(err => console.log(err, "weather data failed"))
-}
-
-function filterWeatherData(response) {
+    const json = response.json()
     return {
-        feels_like: response.main.feels_like,
-        sunrise: response.sys.sunrise,
-        sunset: response.sys.sunset,
-        weather: response.weather[0].main
+        feels_like: json.main.feels_like,
+        sunrise: json.sys.sunrise,
+        sunset: json.sys.sunset,
+        weather: json.weather[0].main
     }
 }
 
@@ -40,7 +35,7 @@ function fillWeatherSection(section, weatherData){
     const message = c("h3", messageString, "message")
     
     section.append(header, message)
-} 
+}
 
 /**
  * 
