@@ -1,20 +1,18 @@
-function getCountryData(country){
-    return fetch("https://restcountries.eu/rest/v2/name/" + country)
-        .then(response => response.json())
-        .catch(err => console.log(err, "country data failed"))
+async function populateCountrySection(section, country){
+    const countryData = await getCountryData(country)
+    fillCountrySection(section, countryData)
 }
 
-
-function filterCountryData(response) {
-    console.log(response)
+async function getCountryData(country){
+    const response = await fetch("https://restcountries.eu/rest/v2/name/" + country)
+    const json = repsonse.json()
     return {
-        country : response[0].name,
-        gini : response[0].gini,
-        nativeName : response[0].nativeName,
-        population: response[0].population,
+        country : json[0].name,
+        gini : json[0].gini,
+        nativeName : json[0].nativeName,
+        population: json[0].population,
     }
 }
-
 
 function fillCountrySection(section, countryData){
     console.log(countryData)
