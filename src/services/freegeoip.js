@@ -1,12 +1,12 @@
-async function populateWelcomeSection(section){
-    const welcomeData = await getWelcomeData()
-    fillWelcomeSection(section, welcomeData)
-    return welcomeData
-}
+// async function populateWelcomeSection(section){
+//     const welcomeData = await getWelcomeData()
+//     fillWelcomeSection(section, welcomeData)
+//     return welcomeData
+// }
 
 async function getWelcomeData() {
     const response = await fetch("https://freegeoip.app/json/")
-    const json = response.json()
+    const json = await response.json()
     
     /* RESPONSE FORMAT
     city: "Arbucies"

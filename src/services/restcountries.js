@@ -5,7 +5,7 @@ async function populateCountrySection(section, country){
 
 async function getCountryData(country){
     const response = await fetch("https://restcountries.eu/rest/v2/name/" + country)
-    const json = repsonse.json()
+    const json = await response.json()
     return {
         country : json[0].name,
         gini : json[0].gini,

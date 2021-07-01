@@ -1,13 +1,13 @@
 async function populateIssSection(section, latitude, longitude){
     const issData = await getIssInfo()
-    const fillIssSection(section, latitude, longitude, issData)
+    fillIssSection(section, latitude, longitude, issData)
 }
 
 async function getIssInfo() {
     const response = await fetch(
         "https://api.wheretheiss.at/v1/satellites/25544"
     )
-    const json = response.json()
+    const json = await response.json()
     return {
         latitude: json.latitude,
         longitude: json.longitude
@@ -34,11 +34,11 @@ function fillIssSection(section, latitude, longitude, issData){
     
     let messageString = null
     if (distance < 1000) {
-        messageString = `Is passing over ${welcomeData.city} right now!`
+        messageString = `Is passing over you right now!`
     } else {
-        messageString = `Is about ${formattedDistance}km from ${welcomeData.city} right now.`
+        messageString = `Is about ${formattedDistance}km from you right now.`
     }
-
+    
     const message = c("h3", messageString, "message")
     
     section.append(header, message)

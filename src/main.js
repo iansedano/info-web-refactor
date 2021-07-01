@@ -1,38 +1,33 @@
-buildStartingPage(root)
-getInfo()
-  .then(resp => console.log(resp))
-  .catch(err => console.log(err))
+main()
+  
 
+async function main() {
+  buildStartingPage(root)
+  const welcomeData = await getWelcomeData()
+  fillWelcomeSection(s("welcome-section"), welcomeData)
 
-function getInfo() {
+  populateCountrySection(s("country-section"), welcomeData.country)
+  
+  populateWeatherSection(
+    s("weather-section"),
+    welcomeData.latitude, welcomeData.longitude
+  )
+  
+  populateIssSection(
+    s("iss-section"),
+    welcomeData.latitude, welcomeData.longitude
+  )
+}
 
-  return getWelcomeData()
-    .then(response => filterWelcomeData(response))
-    .then(welcomeData => {
-      const welcomeDiv = s("welcome-section")
-      fillWelcomeSection(welcomeDiv, welcomeData)
-
-      getCountryData(welcomeData.country)
-        .then(countryData => filterCountryData(countryData))
-        .then(countryData => {
-          const countryDiv = s("country-section")
-          fillCountrySection(countryDiv, countryData)
-        })
-      
-      getWeatherData(welcomeData.latitude, welcomeData.longitude)
-        .then(weatherData => filterWeatherData(weatherData))
-        .then(weatherData => {
-          const weatherDiv = s("weather-section")
-          fillWeatherSection(weatherDiv, weatherData)
-        })
-
-      getIssInfo()
-        .then(issData => filterIssData(issData))
-        .then(issData => {
-          const issDiv = s("iss-section")
-          fillIssSection(issDiv, welcomeData, issData)
-        })
-
-    })
-
+function buildStartingPage(root) {
+  const welcomeSection = c("div", "", "section")
+  welcomeSection.id = "welcome-section"
+  const countrySection = c("div", "", "section")
+  countrySection.id = "country-section"
+  const weatherSection = c("div", "", "section")
+  weatherSection.id = "weather-section"
+  const issSection = c("div", "", "section")
+  issSection.id = "iss-section"
+  
+  root.append(welcomeSection, countrySection, weatherSection, issSection)
 }

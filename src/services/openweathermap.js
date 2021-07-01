@@ -1,5 +1,5 @@
-async function populateOpenWeatherSection(section){
-    const weatherData = await getWeatherData()
+async function populateWeatherSection(section, latitude, longitude){
+    const weatherData = await getWeatherData(latitude, longitude)
     fillWeatherSection(section, weatherData)
 }
 
@@ -9,7 +9,7 @@ async function getWeatherData(latitude, longitude) {
         latitude + "&lon=" + longitude +
         "&appid=1866411b5b586495c200d03f6cfa7a77"
         )
-    const json = response.json()
+    const json = await response.json()
     return {
         feels_like: json.main.feels_like,
         sunrise: json.sys.sunrise,
