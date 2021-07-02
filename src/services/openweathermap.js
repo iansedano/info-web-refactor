@@ -25,7 +25,8 @@ function fillWeatherSection(section, weatherData){
     
     const timeOfDayData = getTimeOfDayData(sunrise, sunset)
     
-    colorPage(timeOfDayData)
+    document.body.style.backgroundColor = timeOfDayData.backgroundColor
+    document.body.style.color = timeOfDayData.textColor
     
     const temp = KtoC(weatherData.feels_like)
     const weather = weatherData.weather
@@ -92,25 +93,14 @@ function fillWeatherSection(section, weatherData){
         backgroundColor: backgroundColor,
         textColor: textColor
     }
-
   }
-  
 
 function getMinsFromStartOfDay(date){
     const hours = date.getHours()
     const minutes = date.getMinutes()
-
     return (hours * 60) + minutes
-    }
-
-    function msToMin(ms) {
-    return (ms / 1000) / 60
 }
 
-
-// TODO - refactor to take argument of background color and color
-function colorPage(timeOfDayData){
-    console.log(timeOfDayData)
-    document.body.style.backgroundColor = timeOfDayData.backgroundColor
-    document.body.style.color = timeOfDayData.textColor
+function msToMin(ms) {
+    return (ms / 1000) / 60
 }
