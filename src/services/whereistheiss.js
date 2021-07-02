@@ -42,9 +42,7 @@ function fillIssSection(section, latitude, longitude, issData){
     const message = c("h3", messageString, "message")
     
     section.append(header, message)
-    
 }
-
 
 /**
  * https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula

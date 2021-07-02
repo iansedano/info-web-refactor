@@ -1,25 +1,14 @@
-// async function populateWelcomeSection(section){
-//     const welcomeData = await getWelcomeData()
-//     fillWelcomeSection(section, welcomeData)
-//     return welcomeData
-// }
+/*
+The other services have a wrapper function around all the functionality within
+the module, however, since the other modules depend on the information obtained
+within this module, the functions within this module need to be called
+independently from main.js
+*/
+
 
 async function getWelcomeData() {
     const response = await fetch("https://freegeoip.app/json/")
     const json = await response.json()
-    
-    /* RESPONSE FORMAT
-    city: "Arbucies"
-    country_code: "ES"
-    country_name: "Spain"
-    ip: "185.58.174.168"
-    latitude: 41.8167
-    longitude: 2.5167
-    metro_code: 0
-    region_code: "CT"
-    region_name: "Catalonia"
-    time_zone: "Europe/Madrid"
-    zip_code: "17401" */
     
     return {
         city : json.city,
