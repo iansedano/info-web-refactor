@@ -8,6 +8,7 @@ independently from main.js
 
 async function getWelcomeData() {
     const response = await fetch("https://freegeoip.app/json/")
+        .catch(e => console.log(e, "Error fetching Welcome Data"))
     const json = await response.json()
     
     return {

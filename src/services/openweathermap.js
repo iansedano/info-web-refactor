@@ -9,6 +9,7 @@ async function getWeatherData(latitude, longitude) {
         latitude + "&lon=" + longitude +
         "&appid=1866411b5b586495c200d03f6cfa7a77"
         )
+        .catch(e => console.log(e, "Error fetching weather data"))
     const json = await response.json()
     return {
         feels_like: json.main.feels_like,

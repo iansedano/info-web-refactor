@@ -6,7 +6,7 @@ async function populateIssSection(section, latitude, longitude){
 async function getIssInfo() {
     const response = await fetch(
         "https://api.wheretheiss.at/v1/satellites/25544"
-    )
+    ).catch(e => console.log(e, "Error fetching ISS data"))
     const json = await response.json()
     return {
         latitude: json.latitude,
